@@ -1,3 +1,3 @@
 == README
 Please upclick!
-www.upclick.herokuapp.com
+upclick.herokuapp.com
