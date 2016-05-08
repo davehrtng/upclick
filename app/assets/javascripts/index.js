@@ -2,7 +2,11 @@
 * perform an Upclick by making an asynchronous call to the upclick server
 */
 function doUpclick() {
-    $.post("click");
+    $.post("click")
+        .done(function(response){
+            $('#span-total-clicks').text(response.total_clicks);
+            $('#span-user-clicks').text(response.user_clicks);
+        });
 }
 
 /*

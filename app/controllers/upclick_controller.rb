@@ -1,6 +1,9 @@
 class UpclickController < ApplicationController
   def index
-    @count = Click.count
+    @total_click_count = Click.count
+    if user_signed_in?
+      @user_click_count = current_user.clicks.count
+    end
   end
   
   def new
@@ -10,6 +13,17 @@ class UpclickController < ApplicationController
       @click = Click.new # anonymous click
     end
     @click.save
-    redirect_to root_path
+    
+    newClickResponse = Hash.new
+    newClickResponse["total_clicks"] = Click.count
+    if user_signed_in?
+        newClickResponse["user_clicks"] = current_user.clicks.count
+    end
+    
+    respond_to do |format|
+        format.json do
+            render json: newClickResponse.to_json
+        end
+    end
   end
 end

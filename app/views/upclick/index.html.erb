@@ -2,6 +2,12 @@
     <i id="gi-upclick" class="glyphicon glyphicon-chevron-up"></i>
 </button>
 
-<p><strong><%= @count %></strong> clicks have already been upped!</p>
+<p><strong><span id="span-total-clicks"><%= @total_click_count %></span></strong> clicks have already been upped!</p>
+
+<% if user_signed_in? %>
+    <p><strong><span id="span-user-clicks"><%= @user_click_count %></span></strong> were you!</p>
+<% end %>
+
+
 <h3><i>Please share and upclick!</i></h3>
 
