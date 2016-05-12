@@ -6,5 +6,5 @@ class User < ActiveRecord::Base
          
   has_many :clicks
   
-  has_one :level
+  belongs_to :level
 end

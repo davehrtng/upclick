@@ -11,10 +11,13 @@ class UpclickController < ApplicationController
       @click = current_user.clicks.build
       @click.save
       
-      # highest_level = LevelWorker.computeLevel(current_user.clicks.count)
-      # if current_user.level != highest_level
-      #  current_user.level = highest_level
-      #end
+      highest_level = Level.where("number_of_clicks < ?", current_user.clicks.count).order("number_of_clicks DESC").first
+
+      if current_user.level.nil? || current_user.level.number_of_clicks < highest_level.number_of_clicks
+        current_user.level = highest_level
+        current_user.save
+      end
+      
     else
       @click = Click.new # anonymous click
       @click.save

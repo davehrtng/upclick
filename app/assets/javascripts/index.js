@@ -6,6 +6,10 @@ function doUpclick() {
         .done(function(response){
             $('#span-total-clicks').text(response.total_clicks);
             $('#span-user-clicks').text(response.user_clicks);
+        })
+        .fail(function(response){
+           alert("Oh dear, something seems to have gone wrong with the game servers. We sincerely apologize. Please come back later and hopefully everything will be working.")
+           console.error(response.responseText); 
         });
 }
 
