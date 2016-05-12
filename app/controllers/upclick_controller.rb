@@ -9,10 +9,16 @@ class UpclickController < ApplicationController
   def new
     if user_signed_in?
       @click = current_user.clicks.build
+      @click.save
+      
+      # highest_level = LevelWorker.computeLevel(current_user.clicks.count)
+      # if current_user.level != highest_level
+      #  current_user.level = highest_level
+      #end
     else
       @click = Click.new # anonymous click
+      @click.save
     end
-    @click.save
     
     newClickResponse = Hash.new
     newClickResponse["total_clicks"] = Click.count
