@@ -12,7 +12,7 @@ class UpclickController < ApplicationController
       @click.save
       
       highest_level = Level.where("number_of_clicks < ?", current_user.clicks.count).order("number_of_clicks DESC").first
-
+      
       if current_user.level.nil? || current_user.level.number_of_clicks < highest_level.number_of_clicks
         current_user.level = highest_level
         current_user.save
