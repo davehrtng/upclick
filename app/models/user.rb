@@ -7,12 +7,4 @@ class User < ActiveRecord::Base
   has_many :clicks
   
   belongs_to :level
-  
-  def is_admin
-    if id == 1
-      return true
-    else
-      return false
-    end
-  end
 end

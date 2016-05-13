@@ -4,5 +4,8 @@
 
 <br />
 
-<%= link_to 'Edit', edit_level_path(@level) %> |
+<% if current_user.try(:admin?) -%>
+  <%= link_to 'Edit', edit_level_path(@level) %> |
+<% end -%>
+
 <%= link_to 'Back', levels_path %>

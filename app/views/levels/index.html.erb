@@ -8,8 +8,11 @@
       <br />
       
       <%= link_to 'Show', level %>
-      <%= link_to 'Edit', edit_level_path(level) %>
-      <%= link_to 'Destroy', level, method: :delete, data: { confirm: 'Are you sure?' } %>
+      
+      <% if current_user.try(:admin?) -%>
+        | <%= link_to 'Edit', edit_level_path(level) %>
+        | <%= link_to 'Destroy', level, method: :delete, data: { confirm: 'Are you sure?' } %>
+      <% end -%>
 <% end %>
 
 <br>

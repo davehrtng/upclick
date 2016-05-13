@@ -1,6 +1,11 @@
 class LevelsController < ApplicationController
   before_action :set_level, only: [:show, :edit, :update, :destroy]
-
+  before_filter :check_privs, only: [:create, :edit, :update, :destroy]
+  
+  def check_privs
+      redirect_to "/", notice: 'Sorry, you do not have permission to do that.' unless current_user.try(:admin?) 
+  end
+  
   # GET /levels
   # GET /levels.json
   def index
