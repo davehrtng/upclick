@@ -7,15 +7,24 @@ class UpclickController < ApplicationController
   end
   
   def new
+    newClickResponse = Hash.new
+    
     if user_signed_in?
       @click = current_user.clicks.build
       @click.save
       
-      highest_level = Level.where("number_of_clicks < ?", current_user.clicks.count).order("number_of_clicks DESC").first
+      highest_level = Level.where("number_of_clicks <= ?", current_user.clicks.count).order("number_of_clicks DESC").first
       
-      if current_user.level.nil? || current_user.level.number_of_clicks < highest_level.number_of_clicks
+      if highest_level && (current_user.level.nil? || current_user.level.number_of_clicks < highest_level.number_of_clicks)
         current_user.level = highest_level
         current_user.save
+        
+        newLevelResponse = Hash.new
+        newLevelResponse["level_name"] = highest_level.name
+        newLevelResponse["image_path"] = highest_level.image_name
+        newLevelResponse["message"] = "LEVEL UP"
+        
+        newClickResponse["new_level"] = newLevelResponse 
       end
       
     else
@@ -23,7 +32,7 @@ class UpclickController < ApplicationController
       @click.save
     end
     
-    newClickResponse = Hash.new
+    
     newClickResponse["total_clicks"] = Click.count
     if user_signed_in?
         newClickResponse["user_clicks"] = current_user.clicks.count
