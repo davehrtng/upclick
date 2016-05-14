@@ -2,6 +2,10 @@
 
 <h1>Levels</h1>
 
+<% if current_user.try(:admin?) -%>
+    <%= link_to 'New Level', new_level_path %>
+<% end -%>
+
 <% @levels.each do |level| %>
      <%= render partial: "levelsummary", locals: {level: level} %>
       
@@ -14,7 +18,3 @@
         | <%= link_to 'Destroy', level, method: :delete, data: { confirm: 'Are you sure?' } %>
       <% end -%>
 <% end %>
-
-<br>
-
-<%= link_to 'New Level', new_level_path %>
