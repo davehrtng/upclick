@@ -21,12 +21,12 @@ class UpclickController < ApplicationController
         
         newLevelResponse = Hash.new
         newLevelResponse["level_name"] = highest_level.name
-        newLevelResponse["image_path"] = highest_level.image_name
-        newLevelResponse["message"] = "LEVEL UP"
+        newLevelResponse["image_path"] = "/assets/" + highest_level.image_name
+        newLevelResponse["message"] = "Leveled up to " + highest_level.name
         
         newClickResponse["new_level"] = newLevelResponse 
       end
-      
+      newClickResponse["user_clicks"] = current_user.clicks.count
     else
       @click = Click.new # anonymous click
       @click.save
@@ -34,9 +34,6 @@ class UpclickController < ApplicationController
     
     
     newClickResponse["total_clicks"] = Click.count
-    if user_signed_in?
-        newClickResponse["user_clicks"] = current_user.clicks.count
-    end
     
     respond_to do |format|
         format.json do
