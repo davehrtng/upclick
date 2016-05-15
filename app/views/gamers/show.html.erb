@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Gamer tag:</strong>
+  <%= @gamer.gamer_tag %>
+</p>
+
+<p>
+  <strong>Level:</strong>
+  <%= @gamer.level_id %>
+</p>
+
+<%= link_to 'Edit', edit_gamer_path(@gamer) %> |
+<%= link_to 'Back', gamers_path %>
