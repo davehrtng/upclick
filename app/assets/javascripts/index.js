@@ -6,12 +6,11 @@ function doUpclick() {
         .done(function(response){
             $('#span-total-clicks').text(response.total_clicks);
             $('#span-user-clicks').text(response.user_clicks);
-            $('#div-level-up').empty();
             if(response.new_level) {
                 var levelUpDiv = $('#div-level-up');
-                levelUpDiv.append("<h3>" + response.new_level.message +  "</h3><br />");
-                levelUpDiv.append('<img src=' + response.new_level.image_path + '/>');
-                console.log(response);
+            	levelUpDiv.empty();
+                levelUpDiv.append("<h3><img src=" + response.new_level.image_path + " width='auto' height='75em' />" + response.new_level.message +  "</h3><br />");
+                levelUpDiv.fadeOut(10000);
             }
         })
         .fail(function(response){
