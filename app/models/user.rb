@@ -5,4 +5,14 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
            
   belongs_to :gamer
+  
+  after_create :create_gamer
+  
+  def create_gamer
+    gamer = Gamer.create
+    gamer.gamer_tag = self.email
+    gamer.save
+    self.gamer = gamer
+    self.save
+  end
 end
