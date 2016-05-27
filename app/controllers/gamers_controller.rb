@@ -1,5 +1,10 @@
 class GamersController < ApplicationController
-  before_action :set_gamer, only: [:show, :edit, :update, :destroy]
+  before_action :set_gamer, only: [:show, :edit, :update]
+  before_filter -> { check_privs(params[:id]) }, only: [:edit, :update]
+  
+  def check_privs(gamer_id)
+      redirect_to "/", notice: 'Sorry, you do not have permission to do that.' unless (user_signed_in? && current_user.gamer.id.to_s == gamer_id)
+  end
 
   # GET /gamers
   # GET /gamers.json
@@ -12,29 +17,8 @@ class GamersController < ApplicationController
   def show
   end
 
-  # GET /gamers/new
-  def new
-    @gamer = Gamer.new
-  end
-
   # GET /gamers/1/edit
   def edit
-  end
-
-  # POST /gamers
-  # POST /gamers.json
-  def create
-    @gamer = Gamer.new(gamer_params)
-
-    respond_to do |format|
-      if @gamer.save
-        format.html { redirect_to @gamer, notice: 'Gamer was successfully created.' }
-        format.json { render :show, status: :created, location: @gamer }
-      else
-        format.html { render :new }
-        format.json { render json: @gamer.errors, status: :unprocessable_entity }
-      end
-    end
   end
 
   # PATCH/PUT /gamers/1
@@ -48,16 +32,6 @@ class GamersController < ApplicationController
         format.html { render :edit }
         format.json { render json: @gamer.errors, status: :unprocessable_entity }
       end
-    end
-  end
-
-  # DELETE /gamers/1
-  # DELETE /gamers/1.json
-  def destroy
-    @gamer.destroy
-    respond_to do |format|
-      format.html { redirect_to gamers_url, notice: 'Gamer was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 
