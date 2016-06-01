@@ -5,8 +5,8 @@
 <p>
   <i>
     <% if user_signed_in? -%>
-        <% if level.number_of_clicks > current_user.clicks.count -%>
-            <%= level.number_of_clicks - current_user.clicks.count %> upclicks remaining to reach this level.
+        <% if level.number_of_clicks > current_user.gamer.clicks.count -%>
+            <%= level.number_of_clicks - current_user.gamer.clicks.count %> upclicks remaining to reach this level.
         <% else -%>
             You have already achieved this level.
         <% end -%>   
