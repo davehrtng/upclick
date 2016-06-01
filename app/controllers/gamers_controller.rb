@@ -9,6 +9,7 @@ class GamersController < ApplicationController
   # GET /gamers
   # GET /gamers.json
   def index
+    # need to return these in descending order of number of clicks
     @gamers = Gamer.all
   end
 

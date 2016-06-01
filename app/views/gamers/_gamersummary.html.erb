@@ -1,0 +1,10 @@
+<p> 
+	<tr>
+		<td><%= rank%>)</td>
+  		<td><%= gamer.gamer_tag %></td>
+  		<td><%= gamer.clicks.count%></td>
+  		<% unless gamer.level_id.nil? %>
+  			<td><%= image_tag gamer.level.image_name %></td>
+  		<% end %>
+	</tr>
+</p>

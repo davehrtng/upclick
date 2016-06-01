@@ -17,7 +17,7 @@ class UpclickController < ApplicationController
       
       if highest_level && (current_user.gamer.level.nil? || current_user.gamer.level.number_of_clicks < highest_level.number_of_clicks)
         current_user.gamer.level = highest_level
-        current_user.save
+        current_user.gamer.save
         
         newLevelResponse = Hash.new
         newLevelResponse["level_name"] = highest_level.name
